@@ -1,0 +1,16 @@
+{
+    "host": "ftp.man2kotabandung.sch.id",
+    "username": "selfsdqf@admin.ppdb.man2kotabandung.sch.id",
+    "password": "E3tpM#8Z#dYh02",
+    "remotePath": "",
+    "protocol": "ftp",
+    "port": 0,
+    "fileNameEncoding": "utf8",
+    "autoUpload": false,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode"
+    ]
+}

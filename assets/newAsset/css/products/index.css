@@ -1,0 +1,27 @@
+.itemsContainer {
+    background: rgb(0, 0, 0);
+    float: left;
+    position: relative
+}
+
+.itemsContainer:hover img {
+    background:rgba(0,0,0,0.6);
+    opacity: 0.1;
+}
+
+.itemsContainer:hover .play {
+    display: block
+    
+}
+
+.play {
+    color: #fff;
+    position: absolute;
+    display: none;
+    top: 25%;
+    width: 40px;
+    margin: 0 auto;
+    left: 27px;
+    right: 0px;
+    z-index: 100
+}

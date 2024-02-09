@@ -1,0 +1,115 @@
+{
+  "ftp://ftp.man2kotabandung.sch.id@selfsdqf@admin.ppdb.man2kotabandung.sch.id": {
+    ".ftpquota": {
+      "type": "-",
+      "size": 15,
+      "lmtime": 0,
+      "modified": true
+    },
+    ".git": {},
+    ".gitignore": {
+      "type": "-",
+      "size": 414,
+      "lmtime": 0,
+      "modified": false
+    },
+    ".htaccess": {
+      "type": "-",
+      "size": 459,
+      "lmtime": 0,
+      "modified": true
+    },
+    ".user.ini": {
+      "type": "-",
+      "size": 309,
+      "lmtime": 0,
+      "modified": true
+    },
+    ".vscode": {},
+    ".well-known": {},
+    "1650191986.zip": {
+      "type": "-",
+      "size": 91912,
+      "lmtime": 0,
+      "modified": false
+    },
+    "1650192172.zip": {
+      "type": "-",
+      "size": 91912,
+      "lmtime": 0,
+      "modified": false
+    },
+    "1650192197.zip": {
+      "type": "-",
+      "size": 91912,
+      "lmtime": 0,
+      "modified": false
+    },
+    "Berkas_6.zip": {
+      "type": "-",
+      "size": 836,
+      "lmtime": 0,
+      "modified": false
+    },
+    "Berkas_7.zip": {
+      "type": "-",
+      "size": 836,
+      "lmtime": 0,
+      "modified": false
+    },
+    "README.md": {
+      "type": "-",
+      "size": 12,
+      "lmtime": 0,
+      "modified": false
+    },
+    "adminer.php": {
+      "type": "-",
+      "size": 210586,
+      "lmtime": 0,
+      "modified": false
+    },
+    "application": {},
+    "assets": {},
+    "composer.json": {
+      "type": "-",
+      "size": 71,
+      "lmtime": 0,
+      "modified": false
+    },
+    "file.zip": {
+      "type": "-",
+      "size": 2507187,
+      "lmtime": 0,
+      "modified": true
+    },
+    "hello world.xlsx": {
+      "type": "-",
+      "size": 6290,
+      "lmtime": 0,
+      "modified": false
+    },
+    "index.php": {
+      "type": "-",
+      "size": 10466,
+      "lmtime": 0,
+      "modified": false
+    },
+    "index_tes.html": {
+      "type": "-",
+      "size": 9,
+      "lmtime": 0,
+      "modified": false
+    },
+    "logo-man2.png": {
+      "type": "-",
+      "size": 91868,
+      "lmtime": 0,
+      "modified": false
+    },
+    "modules": {},
+    "system": {},
+    "vendor": {}
+  },
+  "$version": 1
+}
