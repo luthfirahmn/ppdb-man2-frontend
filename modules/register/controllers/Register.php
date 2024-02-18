@@ -6,7 +6,6 @@ class Register extends FT_Controller
     {
         parent::__construct();
         $this->wa_url = 'https://app.ruangwa.id/api/';
-redirect('login_peserta');
     }
     public function index()
     {
@@ -33,8 +32,9 @@ redirect('login_peserta');
 
             // check number
             $data_cek = 'token=' . wa_token() . '&number=0' . $no_wa;
+
             $check_number = wa_post($this->wa_url . 'check_number', $data_cek);
-            // pre($check_number);
+
             if ($check_number->onwhatsapp == "false") {
                 echo json_encode(['error' => true, 'msg' => $check_number->message]);
                 die;

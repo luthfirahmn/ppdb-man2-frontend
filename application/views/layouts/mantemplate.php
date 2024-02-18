@@ -66,6 +66,8 @@
     <script src="<?= base_url() ?>assets/mantemplate/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <script src="<?= base_url() ?>assets/mantemplate/vendors/js/extensions/toastr.min.js"></script>
     <script src="<?= base_url() ?>assets/mantemplate/vendors/js/extensions/sweetalert2.all.min.js"></script>
+
+
     <!-- END: Page Vendor JS-->
 
     <?php

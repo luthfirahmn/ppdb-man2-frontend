@@ -18,3 +18,10 @@ bin-release/
 # information for Eclipse / Flash Builder.
 auto-pull.php
 application/config/database.php
+
+
+.htaccess
+
+application/config/constants
+application/config/constants_live
+.htaccess

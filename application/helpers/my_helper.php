@@ -346,9 +346,9 @@ if (!function_exists('modal')) {
 }
 
 if (!function_exists('slice_string')) {
-    function slice_string($word,$count)
+    function slice_string($word, $count)
     {
-        $w = substr($word,0,$count);
+        $w = substr($word, 0, $count);
         $res = $w . '...';
 
         return $res;
@@ -359,7 +359,7 @@ if (!function_exists('slice_string')) {
 if (!function_exists('wa_token')) {
     function wa_token()
     {
-        $token = 'ZoPR6rZGJm3nroBmyJ67L6qq1vJLMoC2HRm1TUazn62FMTNNmT';
+        $token = '7tzJ12yy4a5VMXs5MAdnEvoX8PCC1t8K9mMeDcLaqULMHe14kU';
         // $token = 'ZcHg5YWzsRkjocKu6TcVxcmd9uN8RUiN6928Q9wkVn8oBTEqLD';
 
         return $token;
@@ -374,12 +374,12 @@ if (!function_exists('wa_post')) {
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
+            CURLOPT_HEADER => 0,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYHOST => 2,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_POST => true,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => $data,
             CURLOPT_HTTPHEADER => array(

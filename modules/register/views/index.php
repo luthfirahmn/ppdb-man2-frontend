@@ -212,6 +212,21 @@
             'use strict';
 
             $('#btn-otp').click(function() {
+                var btn = $(this);
+                btn.prop("disabled", true);
+
+                var countdown = 60;
+                var countdownInterval = setInterval(function() {
+                    countdown--;
+                    btn.text("Kirim ulang (" + countdown + "s)");
+
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        btn.text("Dapatkan Kode OTP");
+                        btn.prop("disabled", false);
+                    }
+                }, 1000);
+
                 var no_wa = $('#no_wa').val();
                 $.ajax({
                     url: "<?php echo base_url('register/get_otp') ?>",

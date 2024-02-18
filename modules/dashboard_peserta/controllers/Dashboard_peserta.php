@@ -16,35 +16,32 @@ class Dashboard_peserta extends FT_Controller
         //required declare
         $this->_breadcrumb[] = 'index';
         $id = $this->session->userdata('id');
-        if($id == ''){
-                session_destroy();
-                redirect('login_peserta');
-        }else{
+        if ($id == '') {
+            session_destroy();
+            redirect('login_peserta');
+        } else {
             $query = $this->db->query("SELECT ref_status FROM ms_siswa WHERE id = {$id}");
 
             $ref_status = $query->row();
 
-            if($ref_status){
-                switch($ref_status->ref_status){
-                    case 1 :
+            if ($ref_status) {
+                switch ($ref_status->ref_status) {
+                    case 1:
                         redirect('emis_regular');
-                    break;
+                        break;
                     default:
                         $this->page($id);
-                    break;
+                        break;
                 }
-
-
-            }else{
+            } else {
                 session_destroy();
                 redirect('login_peserta');
             }
         }
-
-
     }
 
-    public function page($id){
+    public function page($id)
+    {
 
         $query = $this->db->query("SELECT *
                                     FROM info_per_ref
@@ -83,27 +80,33 @@ class Dashboard_peserta extends FT_Controller
         $this->template->style($style);
         $this->template->title('Dashboard');
         $this->template->build('dashboard', $data);
-
     }
 
     public function download_kartu_btq()
     {
-        $id = $this->session->userdata('id');
-        $query = $this->db->query("SELECT s.nisn,s.nama_lengkap,i.waktu,i.tanggal,i.ruangan,i.penguji FROM ms_jadwal_btq i LEFT JOIN ms_siswa s ON s.id = i.id_siswa WHERE s.id = '{$id}' ORDER BY i.id ASC");
-        $result = $query->row();
+        try {
+            $id = $this->session->userdata('id');
+            $query = $this->db->query("SELECT s.nisn, s.nama_lengkap, i.waktu, i.tanggal, i.ruangan, i.penguji FROM ms_jadwal_btq i LEFT JOIN ms_siswa s ON s.id = i.id_siswa WHERE s.id = '{$id}' ORDER BY i.id ASC");
+            $result = $query->row();
 
-        if($result){
-        $data['all_data']           =   $result;
+            if ($result) {
 
+                if (!$result->nisn && !$result->nama_lengkap && !$result->waktu && !$result->tanggal) {
+                    throw new Exception();
+                }
+                $data['all_data'] = $result;
 
-        $this->load->library('pdf');
+                $this->load->library('pdf');
 
-        $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "Kartu Peseta Ujian BTQ.pdf";
-        $this->pdf->load_view('pdf_ujian', $data);
-        }else{
+                $this->pdf->setPaper('A4', 'portrait');
+                $this->pdf->filename = "Kartu Peserta Ujian BTQ.pdf";
+                $this->pdf->load_view('pdf_ujian', $data);
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception $e) {
             session_destroy();
-            redirect('login_peserta');
+            redirect('login_peserta'); // You might want to redirect to an error page instead
         }
         /*$this->load->view('frontend/page_peserta/pdf_btq', $data);*/
     }
@@ -153,7 +156,7 @@ class Dashboard_peserta extends FT_Controller
     public function download_status_kelulusan_akademik()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             redirect('login_peserta');
             die;
         }
@@ -200,7 +203,7 @@ class Dashboard_peserta extends FT_Controller
     public function download_status_kelulusan_non_akademik()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             redirect('login_peserta');
             die;
         }
@@ -247,7 +250,7 @@ class Dashboard_peserta extends FT_Controller
     public function download_kartu_akademik()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             redirect('login_peserta');
             die;
         }
@@ -264,7 +267,7 @@ class Dashboard_peserta extends FT_Controller
                                             WHERE siswa.id = {$id}
                                 ");
         $result = $query->row();
-        if($result){
+        if ($result) {
             $data['all_data']           =   $result;
             $data['tanggal']           =   $this->format_hari_tanggal($result->tanggal);
             $data['image']          = $this->config->item('base_url') . 'assets/logo.png';
@@ -275,8 +278,8 @@ class Dashboard_peserta extends FT_Controller
             $this->pdf->setPaper('A4', 'potrait');
             $this->pdf->filename = "Kartu Peseta Ujian AKADEMIK.pdf";
             $this->pdf->load_view('pdf_jadwal_akademik', $data);
-        }else{
-            echo"Terjadi kesalahan atau jadwal belum tersedia, Tolong hubungi admin";
+        } else {
+            echo "Terjadi kesalahan atau jadwal belum tersedia, Tolong hubungi admin";
         }
 
         // $this->load->view('pdf_jadwal_akademik', $data);
@@ -327,7 +330,7 @@ class Dashboard_peserta extends FT_Controller
         $bl = date('n', strtotime($waktu));
         $bulan = $bulan_array[$bl];
         $tahun = date('Y', strtotime($waktu));
-        $jam = date( 'H:i:s', strtotime($waktu));
+        $jam = date('H:i:s', strtotime($waktu));
 
         //untuk menampilkan hari, tanggal bulan tahun jam
         //return "$hari, $tanggal $bulan $tahun $jam";

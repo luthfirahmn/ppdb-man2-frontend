@@ -19,6 +19,13 @@ class Emis_regular extends FT_Controller
         $id = $this->session->userdata('id');
 
 
+        $query = $this->db->query("SELECT ref_status FROM ms_siswa WHERE id = {$id}");
+
+        $ref_status = $query->row();
+        if ($ref_status->ref_status == 2) {
+            redirect('dashboard_peserta');
+        }
+
 
         //required declare
         $this->_breadcrumb[] = 'index';
@@ -105,11 +112,11 @@ class Emis_regular extends FT_Controller
 
     public function data_diri()
     {
-        $id =$this->session->userdata('id');
+        $id = $this->session->userdata('id');
         $query = $this->db->query("SELECT ref_status FROM ms_siswa WHERE id = {$id}");
 
         $ref_status = $query->row();
-        if($ref_status->ref_status == 2){
+        if ($ref_status->ref_status == 2) {
             echo json_encode(['error' => false, 'msg' => 'Sukses']);
             die;
         }
@@ -155,60 +162,68 @@ class Emis_regular extends FT_Controller
         $this->db->insert('ms_siswa_ortu', $dataOrtu);
 
         sleep(3);
+
+        // Fetch data from temp_jadwal_btq table based on id
         $qJadwal = $this->db->query("SELECT * FROM temp_jadwal_btq WHERE id = 1");
+        $result = $qJadwal->row();
 
-        $jadwal = $qJadwal->row();
+        // Get the time and date from the result
+        $waktu = $result->waktu;
+        $tanggal = $result->tanggal;
 
+        // Check if the time is during the break (11:30 - 13:00)
+        $breakStart = strtotime('11:30:00');
+        $breakEnd = strtotime('13:00:00');
+        $currentTime = strtotime($waktu);
 
-        $time = date("H:i", strtotime('+15 minutes', strtotime($jadwal->waktu)));
-        $penguji = $jadwal->penguji;
-        $ruangan = $jadwal->ruangan;
-        $tanggal = $jadwal->tanggal;
+        // Check the total count of rows in ms_jadwal_btq table for the same date
+        $qbtqDate = $this->db->query("SELECT COUNT(*) as total FROM ms_jadwal_btq WHERE tanggal = '$tanggal'");
+        $countDateResult = $qbtqDate->row();
 
-        if($penguji == 1 && $jadwal->waktu == '13:45:00'){
-            $penguji = 2;
-            $time = '08:00:00';
-        }else if($penguji == 2 && $jadwal->waktu == '13:45:00'){
-            $penguji = 3;
-            $time = '08:00:00';
-        }else if($penguji == 3 && $jadwal->waktu == '13:45:00' && $ruangan == 1){
-            $penguji = 1;
-            $ruangan = 2;
-            $time = '08:00:00';
-        }else if($penguji == 3 && $jadwal->waktu == '13:45:00' && $ruangan == 2){
-            $penguji = 1;
-            $ruangan = 3;
-            $time = '08:00:00';
-        }else if($penguji == 3 && $jadwal->waktu == '13:45:00' && $ruangan == 3){
-            $penguji = 1;
-            $ruangan = 1;
-            $time = '08:00:00';
+        if ($countDateResult && $countDateResult->total >= 200) {
 
-            if($tanggal == '2023-03-03' || $tanggal == '2023-03-10' || $tanggal == '2023-03-17' || $tanggal == '2023-03-24'|| $tanggal == '2023-03-31'){
-                $tanggal = strtotime($tanggal. ' + 2 days');
+            $newDate = date('Y-m-d', strtotime("$tanggal +1 day"));
+            $newTime = '08:00:00'; // Set the starting time for the next day
+            while (date('N', strtotime($newDate)) >= 6) { // 6 is Saturday, 7 is Sunday
+                $newDate = date('Y-m-d', strtotime("$newDate +1 day"));
+            }
+
+            // If the count is 200 or more, move to the next day
+        } else {
+            // If the date is a Saturday or Sunday, move to the next available weekday
+
+            $newDate =  $result->tanggal;
+            // Proceed with the existing logic for weekdays
+            if ($currentTime >= $breakStart && $currentTime <= $breakEnd) {
+                // If the time is during the break, add 1 hour to skip the break
+                $newTime = date('H:i:s', strtotime("$waktu +1 hour"));
+            } else {
+                // Check the total count of rows in ms_jadwal_btq table
+                $qbtq = $this->db->query("SELECT COUNT(*) as total FROM ms_jadwal_btq");
+                $countResult = $qbtq->row();
+
+                if ($countResult && $countResult->total == 40) {
+                    // If the count is 40, add 1 hour to the time
+                    $newTime = date('H:i:s', strtotime("$waktu +1 hour"));
+                } else {
+                    // If the count is not 40, return the original time
+                    $newTime = $waktu;
+                }
             }
         }
-
-        if($jadwal->waktu == '11:45:00'){
-            $time = '13:00';
-        }
-
-
-        $dataJadwal["id_siswa"]             = $this->session->userdata('id');
-        $dataJadwal["waktu"]                = $jadwal->waktu;
-        $dataJadwal["tanggal"]              = $jadwal->tanggal;
-        $dataJadwal["ruangan"]              = $jadwal->ruangan;
-        $dataJadwal["penguji"]              = $jadwal->penguji;
-
+        // pre($newDate);
+        // Insert data into ms_jadwal_btq table
+        $dataJadwal["id_siswa"] = $this->session->userdata('id');
+        $dataJadwal["waktu"] = $newTime;
+        $dataJadwal["tanggal"] = $newDate;
         $this->db->insert('ms_jadwal_btq', $dataJadwal);
 
-        $dataJadwalTemp["waktu"]                = $time;
-        $dataJadwalTemp["tanggal"]              = $tanggal;
-        $dataJadwalTemp["ruangan"]              = $ruangan;
-        $dataJadwalTemp["penguji"]              = $penguji;
-
+        // Update data in temp_jadwal_btq table
+        $dataJadwalTemp["waktu"] = $newTime;
+        $dataJadwalTemp["tanggal"] = $newDate;
         $this->db->where('id', 1);
         $this->db->update('temp_jadwal_btq', $dataJadwalTemp);
+
 
         $this->db->trans_complete();
 
@@ -217,15 +232,11 @@ class Emis_regular extends FT_Controller
             # Something went wrong.
             $this->db->trans_rollback();
             echo json_encode(['error' => true, 'msg' => $this->db->error()]);
-        }
-        else {
+        } else {
             # Everything is Perfect.
             # Committing data to the database.
             $this->db->trans_commit();
             echo json_encode(['error' => false, 'msg' => 'Sukses']);
         }
     }
-
-
-
 }

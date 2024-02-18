@@ -28,8 +28,8 @@
       "editor.defaultFormatter": "stylelint.vscode-stylelint"
     },
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.fixAll.stylelint": true
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
     },
     "editor.formatOnSave": true,
     "eslint.enable": true,
@@ -68,5 +68,16 @@
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "tailwindCSS.experimental.classRegex": ["tw`([^`]*)", "tw=\"([^\"]*)", "tw={\"([^\"}]*)", "tw\\.\\w+`([^`]*)", "tw\\(.*?\\)`([^`]*)"],
+    "tailwindCSS.includeLanguages": {
+      "typescript": "javascript",
+      "typescriptreact": "javascript"
+    }
   }
