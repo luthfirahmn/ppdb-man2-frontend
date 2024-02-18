@@ -47,7 +47,7 @@ class Frontend extends MX_Controller
                 ';
                 break;
             case 2:
-                return '<a href="' . $path . '" class="inline-flex text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded">Login</a>';
+                return '<a href="' . $login_path . '" class="inline-flex text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded">Login</a>';
                 break;
             case 3:
                 return '<button class="inline-flex text-white bg-gray-500 border-0 py-1 px-4 focus:outline-none rounded" disabled>Pendaftaran ditutup</button>';
