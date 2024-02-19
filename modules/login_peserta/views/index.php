@@ -11,8 +11,7 @@
     <meta name="author" content="MAN 2 KOTA BANDUNG">
     <title>MAN 2 KOTA BANDUNG</title>
     <link rel="icon" type="image/x-icon" href="<?php echo base_url() ?>assets/images/logo-man2.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="<?php echo FT_APP_ASSETS ?>vendors/css/vendors.min.css">
@@ -30,12 +29,10 @@
     <link rel="stylesheet" type="text/css" href="<?php echo FT_APP_ASSETS ?>css/themes/semi-dark-layout.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo FT_APP_ASSETS ?>css/core/menu/menu-types/horizontal-menu.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo FT_APP_ASSETS ?>css/core/menu/menu-types/horizontal-menu.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FT_APP_ASSETS ?>css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FT_APP_ASSETS ?>css/pages/page-auth.css">
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo FT_APP_ASSETS ?>css/plugins/extensions/ext-component-toastr.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo FT_APP_ASSETS ?>css/plugins/extensions/ext-component-toastr.css">
     <!-- END: Page CSS-->
 
 </head>
@@ -43,8 +40,7 @@
 
 <!-- BEGIN: Body-->
 
-<body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover"
-    data-menu="horizontal-menu" data-col="blank-page">
+<body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="blank-page">
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -58,8 +54,7 @@
                         <!-- Register v1 -->
                         <div class="card mb-0">
                             <div class="card-body">
-                                <img src="<?php echo base_url() ?>assets/images/logo-man2.png" width="50"
-                                    class="img-responsive center-block d-block mx-auto">
+                                <img src="<?php echo base_url() ?>assets/images/logo-man2.png" width="50" class="img-responsive center-block d-block mx-auto">
                                 <a href="javascript:void(0);" class="brand-logo">
                                     <h3 class="brand-text text-primary ml-1">MAN 2 KOTA BANDUNG</h3>
                                 </a>
@@ -74,8 +69,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon3">+62</span>
                                             </div>
-                                            <input type="number" class="form-control" id="no_wa" name="no_wa"
-                                                aria-describedby="basic-addon3" />
+                                            <input type="number" class="form-control" id="no_wa" name="no_wa" aria-describedby="basic-addon3" />
                                             <span class="text-danger"></span>
                                         </div>
                                     </div>
@@ -87,20 +81,15 @@
                                             </a>
                                         </div>
                                         <div class="input-group input-group-merge form-password-toggle">
-                                            <input type="password" class="form-control form-control-merge" id="password"
-                                                name="password"
-                                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="register-password" tabindex="3" />
+                                            <input type="password" class="form-control form-control-merge" id="password" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
                                             <div class="input-group-append">
-                                                <span class="input-group-text cursor-pointer"><i
-                                                        data-feather="eye"></i></span>
+                                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox"
-                                                id="register-privacy-policy" tabindex="4" />
+                                            <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />
                                             <label class="custom-control-label" for="register-privacy-policy">
                                                 Ingat Saya
                                             </label>
@@ -109,7 +98,7 @@
                                     <button class="btn btn-primary btn-block" tabindex="5">Masuk</button>
                                 </form>
 
-                               <!-- <p class="text-center mt-2">
+                                <!-- <p class="text-center mt-2">
                                     <span>Belum memiliki akun?</span>
                                     <a href="<?php echo base_url('register') ?>">
                                         <span>Daftar disini</span>
@@ -149,122 +138,141 @@
         <!-- END: Page JS-->
 
         <script>
-        $(window).on('load', function() {
-            if (feather) {
-                feather.replace({
-                    width: 14,
-                    height: 14
-                });
-            }
-        })
-
-        $(function() {
-            'use strict';
-
-
-            $('#btn-change-password').click(function() {
-                var no_wa = $('#no_wa').val();
-                $.ajax({
-                    url: "<?php echo base_url('login_peserta/forgot_password') ?>",
-                    type: "POST",
-                    data: {
-                        no_wa: no_wa
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        if (data.error == false) {
-                            toastr.success(data.msg, 'Success!', {
-                                closeButton: true,
-                                progressBar: true,
-                                tapToDismiss: false
-                            })
-
-                        } else {
-                            toastr.error(data.msg, 'Error!', {
-                                progressBar: true,
-                                allowHtml: true,
-                                closeButton: true,
-                                tapToDismiss: false
-                            });
-                        }
-                    },
-                })
+            $(window).on('load', function() {
+                if (feather) {
+                    feather.replace({
+                        width: 14,
+                        height: 14
+                    });
+                }
             })
 
-            var page = $('.auth-register-form');
+            $(function() {
+                'use strict';
 
-            // jQuery Validation
-            // --------------------------------------------------------------------
-            if (page.length) {
-                page.validate({
 
-                    onkeyup: function(element) {
-                        $(element).valid();
-                    },
-                    rules: {
-                        'no_wa': {
-                            required: true,
-                        },
-                        'password': {
-                            required: true,
-                            minlength: 6
+                $('#btn-change-password').click(function() {
+
+                    $(this).attr("style", "pointer-events: none;");
+
+                    $(this).html(
+                        "<small>Ulangi kirim password (<span id='countdown'>60</span>)</small>"
+                    );
+
+                    var countdown = 60;
+                    var countdownInterval = setInterval(function() {
+                        countdown--;
+                        $("#countdown").text(countdown);
+
+                        if (countdown <= 0) {
+                            $("#btn-change-password").removeAttr("style");
+                            $("#btn-change-password").html("<small>Lupa Password</small>");
+                            clearInterval(countdownInterval);
                         }
-                    },
-                    messages: {
-                        'no_wa': {
-                            required: 'No Whatsapp tidak boleh kosong'
+                    }, 1000);
+
+                    var no_wa = $('#no_wa').val();
+                    $.ajax({
+                        url: "<?php echo base_url('login_peserta/forgot_password') ?>",
+                        type: "POST",
+                        data: {
+                            no_wa: no_wa
                         },
-                        'password': {
-                            required: 'Password tidak boleh kosong',
-                            minlength: jQuery.validator.format(
-                                "Password harus memiliki minimal {0} karakter")
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.error == false) {
+                                toastr.success(data.msg, 'Success!', {
+                                    closeButton: true,
+                                    progressBar: true,
+                                    tapToDismiss: false
+                                })
+
+                            } else {
+                                toastr.error(data.msg, 'Error!', {
+                                    progressBar: true,
+                                    allowHtml: true,
+                                    closeButton: true,
+                                    tapToDismiss: false
+                                });
+                            }
+                        },
+                    })
+                })
+
+                var page = $('.auth-register-form');
+
+                // jQuery Validation
+                // --------------------------------------------------------------------
+                if (page.length) {
+                    page.validate({
+
+                        onkeyup: function(element) {
+                            $(element).valid();
+                        },
+                        rules: {
+                            'no_wa': {
+                                required: true,
+                            },
+                            'password': {
+                                required: true,
+                                minlength: 6
+                            }
+                        },
+                        messages: {
+                            'no_wa': {
+                                required: 'No Whatsapp tidak boleh kosong'
+                            },
+                            'password': {
+                                required: 'Password tidak boleh kosong',
+                                minlength: jQuery.validator.format(
+                                    "Password harus memiliki minimal {0} karakter")
+                            }
+                        },
+
+                        submitHandler: function(page) {
+                            $.ajax({
+                                url: "<?php echo base_url('login_peserta/login_proccess') ?>",
+                                type: "POST",
+                                data: $(page).serialize(),
+                                dataType: "json",
+                                beforeSend: function() {
+                                    $('.save').attr('disable', 'disabled');
+                                    $('.save').html(
+                                        '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class = "ml-25 align-middle" > Loading... </span>'
+                                    );
+                                },
+                                complete: function() {
+                                    $('.save').removeAttr('disable');
+                                    $('.save').html('Simpan');
+                                },
+                                success: function(data) {
+                                    if (data.error == false) {
+                                        toastr.success(data.msg, 'Success!', {
+                                            closeButton: true,
+                                            progressBar: true,
+                                            tapToDismiss: false
+                                        })
+                                        window.location.href =
+                                            '<?php echo base_url('dashboard_peserta') ?>';
+
+                                    } else {
+                                        toastr.error(data.msg, 'Error!', {
+                                            progressBar: true,
+                                            allowHtml: true,
+                                            closeButton: true,
+                                            tapToDismiss: false
+                                        });
+                                    }
+                                },
+                            });
                         }
-                    },
-
-                    submitHandler: function(page) {
-                        $.ajax({
-                            url: "<?php echo base_url('login_peserta/login_proccess') ?>",
-                            type: "POST",
-                            data: $(page).serialize(),
-                            dataType: "json",
-                            beforeSend: function() {
-                                $('.save').attr('disable', 'disabled');
-                                $('.save').html(
-                                    '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class = "ml-25 align-middle" > Loading... </span>'
-                                );
-                            },
-                            complete: function() {
-                                $('.save').removeAttr('disable');
-                                $('.save').html('Simpan');
-                            },
-                            success: function(data) {
-                                if (data.error == false) {
-                                    toastr.success(data.msg, 'Success!', {
-                                        closeButton: true,
-                                        progressBar: true,
-                                        tapToDismiss: false
-                                    })
-                                    window.location.href =
-                                        '<?php echo base_url('dashboard_peserta') ?>';
-
-                                } else {
-                                    toastr.error(data.msg, 'Error!', {
-                                        progressBar: true,
-                                        allowHtml: true,
-                                        closeButton: true,
-                                        tapToDismiss: false
-                                    });
-                                }
-                            },
-                        });
-                    }
-                });
+                    });
 
 
-            }
-            // end validation
+                }
+                // end validation
 
-        });
+            });
         </script>
     </div>
 </body>
