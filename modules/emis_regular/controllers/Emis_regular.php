@@ -190,28 +190,27 @@ class Emis_regular extends FT_Controller
 
             // If the count is 200 or more, move to the next day
         } else {
-            // If the date is a Saturday or Sunday, move to the next available weekday
+            $newDate = $tanggal;
+            $qbtq = $this->db->query("SELECT COUNT(*) as total FROM ms_jadwal_btq WHERE tanggal = '{$tanggal}'");
+            $countResult = $qbtq->row();
 
-            $newDate =  $result->tanggal;
-            // Proceed with the existing logic for weekdays
-            if ($currentTime >= $breakStart && $currentTime <= $breakEnd) {
-                // If the time is during the break, add 1 hour to skip the break
-                $newTime = date('H:i:s', strtotime("$waktu +1 hour"));
+
+            if ($countResult->total >= 1 && $countResult->total < 40) {
+                $newTime = '08:00:00';
+            } elseif ($countResult->total >= 40 && $countResult->total < 80) {
+                $newTime = '09:00:00';
+            } elseif ($countResult->total >= 80 && $countResult->total < 120) {
+                $newTime = '10:00:00';
+            } elseif ($countResult->total >= 120 && $countResult->total < 140) {
+                $newTime = '11:00:00';
+            } elseif ($countResult->total >= 140 && $countResult->total < 180) {
+                $newTime = '13:00:00';
+            } elseif ($countResult->total >= 180 && $countResult->total < 200) {
+                $newTime = '14:00:00';
             } else {
-                // Check the total count of rows in ms_jadwal_btq table
-                $qbtq = $this->db->query("SELECT COUNT(*) as total FROM ms_jadwal_btq");
-                $countResult = $qbtq->row();
-
-                if ($countResult && $countResult->total == 40) {
-                    // If the count is 40, add 1 hour to the time
-                    $newTime = date('H:i:s', strtotime("$waktu +1 hour"));
-                } else {
-                    // If the count is not 40, return the original time
-                    $newTime = $waktu;
-                }
+                $newTime = '08:00:00';
             }
         }
-        // pre($newDate);
         // Insert data into ms_jadwal_btq table
         $dataJadwal["id_siswa"] = $this->session->userdata('id');
         $dataJadwal["waktu"] = $newTime;
