@@ -14,8 +14,10 @@
             <div class="navbar-container main-menu-content" data-menu="menu-container">
                 <!-- include ../../../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li class="nav-item" data-menu="dropdown"><a class="nav-link d-flex align-items-center" href="#"><i data-feather="home"></i><span data-i18n="Dashboards">Dashboard</span></a>
+                    <li class="nav-item" data-menu="dropdown"><a class="nav-link d-flex align-items-center" href="<?= base_url("dashboard_peserta") ?>"><i data-feather="home"></i><span data-i18n="Dashboards">Dashboard</span></a>
                     </li>
+                    <!-- <li class="nav-item" data-menu="dropdown"><a class="nav-link d-flex align-items-center" href="<?= base_url("settings") ?>"><i data-feather="settings"></i><span data-i18n="Dashboards">Pengaturan Akun</span></a>
+                    </li> -->
                 </ul>
             </div>
         </div>

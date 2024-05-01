@@ -78,15 +78,15 @@ class Register extends FT_Controller
             echo json_encode(['error' => true, 'msg' => $errors]);
         } else {
 
-            $otp = $this->input->post('otp');
-            $no_wa = (int)$this->input->post('no_wa');
-            $query = $this->db->query("SELECT * FROM sys_otp WHERE no_wa = '{$no_wa}' AND otp = '{$otp}' ");
-            $result = $query->num_rows();
+            // $otp = $this->input->post('otp');
+            // $no_wa = (int)$this->input->post('no_wa');
+            // $query = $this->db->query("SELECT * FROM sys_otp WHERE no_wa = '{$no_wa}' AND otp = '{$otp}' ");
+            // $result = $query->num_rows();
 
-            if ($result < 1) {
-                echo json_encode(['error' => true, 'msg' => 'Kode OTP salah']);
-                die;
-            }
+            // if ($result < 1) {
+            //     echo json_encode(['error' => true, 'msg' => 'Kode OTP salah']);
+            //     die;
+            // }
             $data["nisn"]                 = $this->input->post('nisn');
             $data["nama_lengkap"]         = strtoupper($this->input->post('nama_lengkap'));
             $data["tgl_lahir"]            = strtoupper($this->input->post('tgl_lahir'));

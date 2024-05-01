@@ -15,41 +15,38 @@ class Emis extends FT_Controller
         $this->_breadcrumb[] = 'index';
 
         $id = $this->session->userdata('id');
-        if($id == ''){
-                session_destroy();
-                redirect('login_peserta');
-        }else{
+        if ($id == '') {
+            session_destroy();
+            redirect('login_peserta');
+        } else {
             $query = $this->db->query("SELECT ref_status FROM ms_siswa WHERE id = {$id}");
 
             $ref_status = $query->row();
 
-            if($ref_status){
-                switch($ref_status->ref_status){
-                    case 3 :
+            if ($ref_status) {
+                switch ($ref_status->ref_status) {
+                    case 3:
                         $this->page($id);
-                    break;
+                        break;
                     default:
                         redirect('dashboard_peserta');
-                    break;
+                        break;
                 }
-
-
-            }else{
+            } else {
                 session_destroy();
                 redirect('login_peserta');
             }
         }
-
-
     }
 
-    public function page($id){
-         //required declare
+    public function page($id)
+    {
+        //required declare
 
-         $query = $this->db->query("SELECT * FROM ms_jalur WHERE active = 1 ORDER BY id ASC");
-         $jalur = $query->result_array();
+        $query = $this->db->query("SELECT * FROM ms_jalur WHERE active = 1 ORDER BY id ASC");
+        $jalur = $query->result_array();
 
-         $query = $this->db->query("SELECT
+        $query = $this->db->query("SELECT
                                         t0.*,
                                         t1.jalur,
                                         t2.*,
@@ -64,42 +61,42 @@ class Emis extends FT_Controller
                                     LEFT JOIN ms_siswa_berkas t5 ON t5.id_siswa = t0.id
                                     WHERE t0.id = {$id}
                                     ");
-         $siswa = $query->row_array();
+        $siswa = $query->row_array();
 
-         $query = $this->db->query("SELECT *
+        $query = $this->db->query("SELECT *
                                     FROM ms_jalur j
                                     WHERE j.id IN (SELECT id_jalur FROM ms_siswa WHERE id = {$id}) ");
         $all_jalur = $query->row_array();
 
-         $data = array(
-             'contentHeader' => $this->_breadcrumb[0],
-             'breadcrumb' => $this->_breadcrumb,
-             'jalur'         => $jalur,
-             'all_jalur'         => $all_jalur ? $all_jalur : 0,
-             'siswa'         => $siswa,
-         );
+        $data = array(
+            'contentHeader' => $this->_breadcrumb[0],
+            'breadcrumb' => $this->_breadcrumb,
+            'jalur'         => $jalur,
+            'all_jalur'         => $all_jalur ? $all_jalur : 0,
+            'siswa'         => $siswa,
+        );
 
-         $style["css"] = [
-             FT_APP_ASSETS . "vendors/css/forms/wizard/bs-stepper.min.css",
-             FT_APP_ASSETS . "vendors/css/forms/select/select2.min.css",
-             FT_APP_ASSETS . "css/plugins/forms/form-validation.css",
-             FT_APP_ASSETS . "css/plugins/forms/form-wizard.css"
+        $style["css"] = [
+            FT_APP_ASSETS . "vendors/css/forms/wizard/bs-stepper.min.css",
+            FT_APP_ASSETS . "vendors/css/forms/select/select2.min.css",
+            FT_APP_ASSETS . "css/plugins/forms/form-validation.css",
+            FT_APP_ASSETS . "css/plugins/forms/form-wizard.css"
 
-         ];
+        ];
 
-         $script["js"] = [
-             FT_APP_ASSETS . "vendors/js/forms/wizard/bs-stepper.min.js",
-             FT_APP_ASSETS . "vendors/js/forms/select/select2.full.min.js",
-             FT_APP_ASSETS . "vendors/js/forms/validation/jquery.validate.min.js",
-             // FT_APP_ASSETS . "js/scripts/forms/form-wizard.js",
-         ];
+        $script["js"] = [
+            FT_APP_ASSETS . "vendors/js/forms/wizard/bs-stepper.min.js",
+            FT_APP_ASSETS . "vendors/js/forms/select/select2.full.min.js",
+            FT_APP_ASSETS . "vendors/js/forms/validation/jquery.validate.min.js",
+            // FT_APP_ASSETS . "js/scripts/forms/form-wizard.js",
+        ];
 
 
-         $this->template->style($style);
-         // pre($a);
-         $this->template->script($script);
-         $this->template->title('Form Data Diri');
-         $this->template->build('index', $data);
+        $this->template->style($style);
+        // pre($a);
+        $this->template->script($script);
+        $this->template->title('Form Data Diri');
+        $this->template->build('index', $data);
     }
 
     public function validate()
@@ -111,7 +108,7 @@ class Emis extends FT_Controller
         $jalur = $query->result_array();
 
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -151,7 +148,7 @@ class Emis extends FT_Controller
     public function pilih_jalur()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -181,7 +178,7 @@ class Emis extends FT_Controller
     public function data_diri()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -222,7 +219,7 @@ class Emis extends FT_Controller
     public function alamat()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -241,7 +238,7 @@ class Emis extends FT_Controller
 
 
         $update = $this->db->where('id_siswa', $this->session->userdata('id'))
-        ->update('ms_siswa_alamat', $data);
+            ->update('ms_siswa_alamat', $data);
 
         $this->db->where('id', $this->session->userdata('id'))
             ->update('ms_siswa', $data_status);
@@ -257,7 +254,7 @@ class Emis extends FT_Controller
     public function sekolah()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -270,7 +267,7 @@ class Emis extends FT_Controller
 
 
         $update = $this->db->where('id_siswa', $this->session->userdata('id'))
-        ->update('ms_siswa_sekolah', $data);
+            ->update('ms_siswa_sekolah', $data);
 
         $this->db->where('id', $this->session->userdata('id'))
             ->update('ms_siswa', $data_status);
@@ -286,7 +283,7 @@ class Emis extends FT_Controller
     public function orang_tua()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -313,7 +310,7 @@ class Emis extends FT_Controller
 
 
         $update = $this->db->where('id_siswa', $this->session->userdata('id'))
-        ->update('ms_siswa_ortu', $data);
+            ->update('ms_siswa_ortu', $data);
 
         $this->db->where('id', $this->session->userdata('id'))
             ->update('ms_siswa', $data_status);
@@ -330,7 +327,7 @@ class Emis extends FT_Controller
     public function berkas_keterangan_lulus()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -403,7 +400,7 @@ class Emis extends FT_Controller
     public function berkas_nisn()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -474,7 +471,7 @@ class Emis extends FT_Controller
     public function berkas_rapot()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -547,10 +544,10 @@ class Emis extends FT_Controller
         if (isset($_POST)) {
 
             $id = $this->session->userdata('id');
-             if($id == ''){
-            echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
-            die;
-        }
+            if ($id == '') {
+                echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
+                die;
+            }
 
             $query = $this->db->query("SELECT * FROM ms_siswa_berkas WHERE id_siswa = {$id} ");
             $result = $query->row();
@@ -617,7 +614,7 @@ class Emis extends FT_Controller
     public function berkas_kk()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -688,7 +685,7 @@ class Emis extends FT_Controller
     public function berkas_ktp_ortu()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -759,7 +756,7 @@ class Emis extends FT_Controller
     public function berkas_foto()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -830,7 +827,7 @@ class Emis extends FT_Controller
     public function berkas_khusus()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -902,7 +899,7 @@ class Emis extends FT_Controller
     public function save()
     {
         $id = $this->session->userdata('id');
-        if($id == ''){
+        if ($id == '') {
             echo json_encode(['error' => true, 'msg' => 'Session telah habis, mohon untuk logout dan login kembali']);
             die;
         }
@@ -928,19 +925,19 @@ class Emis extends FT_Controller
             die;
         }
 
-        switch($berkas->id_jalur){
-            case 1 :
+        switch ($berkas->id_jalur) {
+            case 1:
                 $ref_status = 5;
                 break;
-                case 2 :
-                    $ref_status = 6;
-                    break;
-                    case 3 :
-                        $ref_status = 7;
-                        break;
-                        case 4 :
-                            $ref_status = 8;
-                            break;
+            case 2:
+                $ref_status = 6;
+                break;
+            case 3:
+                $ref_status = 7;
+                break;
+            case 4:
+                $ref_status = 8;
+                break;
         }
         $data["nilai_mtk"]             = $this->input->post('nilai_mtk');
         $data["nilai_ipa"]             = $this->input->post('nilai_ipa');
@@ -953,13 +950,11 @@ class Emis extends FT_Controller
 
         if ($update) {
             $this->db->where('id', $this->session->userdata('id'))
-                ->update('ms_siswa', ['status_berkas' => 1,'ref_status' => $ref_status]);
+                ->update('ms_siswa', ['status_berkas' => 1, 'ref_status' => $ref_status]);
             echo json_encode(['error' => false, 'msg' => 'Sukses']);
             // redirect('userlogin');
         } else {
             echo json_encode(['error' => true, 'msg' => 'Error']);
         }
     }
-
-
 }

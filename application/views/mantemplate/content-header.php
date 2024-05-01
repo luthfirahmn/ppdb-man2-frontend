@@ -11,7 +11,7 @@
                             <?php
                             for ($i = 0; $i < count($breadcrumb); $i++) {
                                 echo $i == (count($breadcrumb) - 1) ? '<li class="breadcrumb-item active">' : '<li class="breadcrumb-item">';
-                                echo $i == 0 ? '<a href="' . base_url(strtolower($breadcrumb[$i])) . '">' . $breadcrumb[$i] . '</a>' : $breadcrumb[$i];
+                                echo $i == 0 ? '<a href="#">' . $breadcrumb[$i] . '</a>' : $breadcrumb[$i];
                                 echo '</li>';
                             }
                             ?>
