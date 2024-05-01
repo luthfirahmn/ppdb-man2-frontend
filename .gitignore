@@ -19,5 +19,5 @@ bin-release/
 auto-pull.php
 application/config/database.php
 
-application/config/constants
+application/config/constants.php
 .htaccess
