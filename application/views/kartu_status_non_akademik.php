@@ -48,7 +48,7 @@
             <!-- <h4>Nomor : 444 tahun 2023 tanggal 19 mei 2024</h4> -->
             <h4>Tanggal 18 mei 2024</h4>
             <p>Berdasarkan hasil seleksi, Panitia Penerimaan Peserta Didik Baru (PPDB)
-                Madrasah Aliyah Negeri 2 Kota Bandung Tahun Pelajaran 2023/2024, dengan ini menerangkan bahwa :</p>
+                Madrasah Aliyah Negeri 2 Kota Bandung Tahun Pelajaran 2024/2025, dengan ini menerangkan bahwa :</p>
         </div>
 
         <table id="table">
