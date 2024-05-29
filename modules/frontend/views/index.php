@@ -54,12 +54,16 @@
         </div>
 
         <div class="bg-white h-full w-full px-2 lg:px-10 pt-20 pb-20 overflow-y-auto">
-            <!-- <div
-                class="mb-5 border-2 border-cyan-500 rounded-lg shadow-lg transform transition-all duration-300 scale-100 hover:scale-95">
-                <div class=" px-5 py-10">
-                    dadawdwad
+
+            <!-- Modal -->
+            <div id="imageModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 hidden z-20" onclick="closeModal(event)">
+                <div class="relative bg-white rounded-lg overflow-hidden w-full max-w-xl mx-4 md:mx-0 md:h-[80%]">
+                    <button class="absolute top-2 right-2 text-white" onclick="closeModal()">&times;</button>
+                    <img id="modalImage" src="<?= ASSETS . 'images/info_kelulusan.jpg' ?>" alt="Full Image" class="object-fill h-full w-full">
                 </div>
-            </div> -->
+            </div>
+
+
 
             <div class="mb-5" id="pendaftaran">
                 <div class="block rounded-lg relative p-5 transform transition-all duration-300 scale-100 hover:scale-95 shadow-xl" style="background: url(<?= ASSETS . 'images/bg.png' ?>) center; background-size: cover;">
@@ -206,6 +210,8 @@
             </a> -->
         </div>
     </div>
+
+
 </body>
 
 </html>
@@ -216,6 +222,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
+    $(document).ready(function() {
+        $('#imageModal').removeClass('hidden').hide().fadeIn(500);
+    });
+
+
+    function closeModal(event) {
+        if (event.target.id === 'imageModal' || event.target.tagName === 'BUTTON') {
+            $('#imageModal').fadeOut(1000, function() {
+                $(this).addClass('hidden');
+            }); // 1 second animation duration
+        }
+    }
     var windowHeight = window.innerHeight;
     var elementPosition = document.querySelector(".starring").getBoundingClientRect().top;
 
