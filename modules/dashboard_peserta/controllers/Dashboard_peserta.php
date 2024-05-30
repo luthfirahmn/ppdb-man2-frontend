@@ -57,9 +57,15 @@ class Dashboard_peserta extends FT_Controller
                                         i.nama_lengkap,
                                         CONCAT('0',i.no_wa) AS no_wa,
                                         i.email,
-                                        j.jalur
+                                        j.jalur,
+                                        t3.asal_sekolah,
+                                        i.tgl_lahir,
+                                        i.tempat_lahir,
+                                        i.no_wa,
+                                        i.id_status
                                     FROM ms_siswa i
                                     LEFT JOIN ms_jalur j ON j.id = i.id_jalur
+                                    LEFT JOIN ms_siswa_sekolah t3 ON t3.id_siswa = i.id
                                     WHERE i.id = '{$id}'
         ");
         $getInfoPeserta = $query->row_array();

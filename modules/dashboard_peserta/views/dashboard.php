@@ -142,13 +142,21 @@
                                                         </a>
                                                         </p>';
                                                         break;
+                                                        // case 'btn_kartu_status_akademik':
+                                                        //     echo '<p class="card-text  mt-2">
+                                                        // <a href="' . base_url("dashboard_peserta/download_status_kelulusan_akademik") . '"
+                                                        //     class="btn btn-outline-primary ">
+                                                        //     <i data-feather="download" class="mr-25"></i>
+                                                        //     <span>Download Pengumuman Status</span>
+                                                        //     </a>
+                                                        //     </p>';
+                                                        //     break;
                                                     case 'btn_kartu_status_akademik':
                                                         echo '<p class="card-text  mt-2">
-                                                    <a href="' . base_url("dashboard_peserta/download_status_kelulusan_akademik") . '"
-                                                        class="btn btn-outline-primary ">
-                                                        <i data-feather="download" class="mr-25"></i>
-                                                        <span>Download Pengumuman Status</span>
-                                                        </a>
+                                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_status_akademik">
+                                                        <i data-feather="eye" class="mr-25"></i>
+                                                        <span>Lihat Pengumuman Status</span>
+                                                        </button>
                                                         </p>';
                                                         break;
                                                     case 'btn_form_data_diri':
@@ -184,4 +192,84 @@
         <!--/ profile info section -->
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_status_akademik" tabindex="-1" aria-labelledby="modal_status_akademikLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header <?= $infoPeserta['id_status'] == 8 ? 'bg-primary' : 'bg-danger' ?>">
+                <h5 class="modal-title text-white py-2" id="modal_status_akademikLabel">
+                    <?php
+                    if ($infoPeserta['id_status'] == 8) {
+                        echo '
+<strong>SELAMAT!! ANANDA DITERIMA DI MAN 2 KOTA BANDUNG</strong>';
+                    } else {
+                        echo '
+                        Mohon maaf, ananda dinyatakan <strong>TIDAK LULUS</strong> dalam PPDB MAN 2 Kota Bandung.';
+                    } ?>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body py-2">
+                <p class="h3"><strong><?= $infoPeserta['nama_lengkap'] ?></strong></p>
+                <p>NISN <?= $infoPeserta['nisn'] ?></p>
+
+                <div>
+                    <table class="table " style="width: 70%;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label class="text-primary">Asal Sekolah</label>
+                                    <p><strong><?= $infoPeserta['asal_sekolah'] ?></strong></p>
+                                </td>
+
+                                <td>
+                                    <label class="text-primary">Tanggal Lahir</label>
+                                    <p><strong><?= $infoPeserta['tgl_lahir'] ?></strong></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="text-primary">Tempat Lahir</label>
+                                    <p><strong><?= $infoPeserta['tempat_lahir'] ?></strong></p>
+                                </td>
+                                <td>
+                                    <label class="text-primary">No Telpon</label>
+                                    <p><strong><?= $infoPeserta['no_wa'] ?></strong></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <?php
+                if ($infoPeserta['id_status'] == 8) {
+                    echo '
+                <div class="alert alert-warning col-md-12" role="alert">
+                    <div class="alert-body"> Surat Kelulusan PPDBM diambil hari Jumat, 31 Mei 2024 Pukul 08.00-11.00 WIB di Gedung Serba Guna MAN 2 Kota Bandung.
+                    </div>
+                </div>
+                <div class="alert alert-danger col-md-12" role="alert">
+                    <div class="alert-body"> SURAT KELULUSAN PPDBM MENJADI SYARAT UNTUK DAFTAR ULANG PADA TANGGAL 6-8 JUNI 2024 PUKUL 08.00-14.00 WIB.
+                        <strong>
+                            TIDAK DAFTAR ULANG DIANGGAP MENGUNDURKAN DIRI.
+                        </strong>
+                    </div>
+                </div>';
+                } else {
+                    echo '
+                    <div class="alert alert-primary col-md-12" role="alert">
+                    <div class="alert-body"> Ananda mendapat kesempatan masuk <b>TANPA SELEKSI</b> di SMK Muhammadiyah 2 Cibiru, Kota Bandung di Jalan Cilengkrang II No.7.
+                    No. Kontak 089669907509 (Akbar Rosmanda).
+
+                    </div>
+                </div>
+                ';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
 </div>
