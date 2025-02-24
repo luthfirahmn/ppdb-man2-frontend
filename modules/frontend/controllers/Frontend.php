@@ -32,32 +32,45 @@ class Frontend extends MX_Controller
         $register_path = base_url() . '/register';
         switch ($param) {
             case 0:
-                return '<button class="inline-flex text-white bg-gray-500 border-0 py-1 px-4 focus:outline-none rounded" disabled>Pendaftaran belum dibuka</button>';
+                return '
+                 <div class="main-button-secondary">Pendaftaran belum dibuka</div>';
                 break;
             case 1:
                 return '
-                <a href="' . $login_path . '"
-                    class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full mr-2  transition duration-300 ease-in-out">
-                    <i class="fa fa-right-to-bracket"></i> Login
-                </a>
-                <a href="' . $register_path . '"
-                    class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out">
-                    <i class="fa fa-address-card"></i> Daftar
-                </a>
+                    <div class="main-button-red me-2">
+                        <a href="' . $login_path . '"
+                            class="">
+                            <i class="fa fa-sign-in"></i> Login
+                        </a>
+                    </div>
+                    <div class="main-button-yellow ">
+                        <a href="' . $register_path . '"
+                        class="">
+                        <i class="fa fa-address-card"></i> Daftar
+                    </a>
+                    </div>
+
                 ';
                 break;
             case 2:
-                return '<a href="' . $login_path . '" class="inline-flex text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded">Login</a>';
+                return '
+
+                 <div class="main-button-red me-2">
+                        <a href="' . $login_path . '" class="">Login</a>
+                    </div>
+                   ';
                 break;
             case 3:
-                return '<button class="inline-flex text-white bg-gray-500 border-0 py-1 px-4 focus:outline-none rounded" disabled>Pendaftaran ditutup</button>';
+                return '
+                <div class="main-button-secondary">Pendaftaran ditutup</div>';
                 break;
         }
     }
 
-    public function getArticleDetail($id)
+    public function detail($id)
     {
         $prosess = $this->model->getArticleDetail($id);
-        echo $prosess;
+
+        $this->load->view('frontend/detail', $prosess);
     }
 }
