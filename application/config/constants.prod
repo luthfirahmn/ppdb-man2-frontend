@@ -101,7 +101,7 @@ define('ASSETS', SITE_PATH . 'assets' . DS);
 define('UPLOAD_EMPLOYEE', './assets/adminlte/upload/employee' . DS);
 define('UPLOAD_PRODUCT_PATH', './assets/adminlte/upload/product' . DS);
 define('UPLOAD_PRODUCT', SITE_PATH . '/assets/adminlte/upload/product' . DS);
-define('ADMIN', 'https://admin.ppdb.man2kotabandung.sch.id/');
+define('ADMIN', 'https://admin-ppdb.man2kotabandung.sch.id/');
 define('FRONTEND', 'https://ppdb.man2kotabandung.sch.id/');
 define('SISWA', 'https://siswa.ppdb.man2kotabandung.sch.id/');
 define('SISWA_BERKAS', 'https://siswa.ppdb.man2kotabandung.sch.id/assets/upload/berkas/');
