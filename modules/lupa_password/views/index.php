@@ -59,8 +59,8 @@
                                     <h3 class="brand-text text-primary ml-1">MAN 2 KOTA BANDUNG</h3>
                                 </a>
 
-                                <h4 class="card-title mb-1">LOGIN</h4>
-                                <p class="card-text mb-2">Masuk untuk melanjutkan ke halaman dashboard</p>
+                                <h4 class="card-title mb-1">Lupa Password</h4>
+                                <p class="card-text mb-2">Silahkan isi form dibawah</p>
 
                                 <form class="auth-register-form mt-2">
                                     <div class="form-group">
@@ -75,10 +75,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="d-flex justify-content-between">
-                                            <label for="password" class="form-label">Password</label>
-                                            <a href="<?= BASE_URL . 'lupa_password' ?>" type="button">
-                                                <small>Lupa Password</small>
-                                            </a>
+                                            <label for="password" class="form-label">Password Baru</label>
+
                                         </div>
                                         <div class="input-group input-group-merge form-password-toggle">
                                             <input type="password" class="form-control form-control-merge" id="password" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
@@ -88,22 +86,35 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />
-                                            <label class="custom-control-label" for="register-privacy-policy">
-                                                Ingat Saya
-                                            </label>
+                                        <div class="d-flex justify-content-between">
+                                            <label for="password" class="form-label">Ulang Password Baru</label>
+
+                                        </div>
+                                        <div class="input-group input-group-merge form-password-toggle">
+                                            <input type="password" class="form-control form-control-merge" id="re-password" name="re-password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="register-password" tabindex="3" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary btn-block" tabindex="5">Masuk</button>
+
+                                    <div class="form-group">
+                                        <label for="otp" class="form-label">OTP</label>
+                                        <input type="number" class="form-control " id="otp" name="otp" tabindex="2" autocomplete="off" />
+                                        <span class="text-danger mb-1"><small>. Kode OTP akan dikirimkan melalui
+                                                whatsapp yanng digunakan untuk mengganti password</small></span>
+                                        <button class="btn btn-primary btn-sm" type="button" id="btn-otp"> Dapatkan kode
+                                            OTP </button>
+                                    </div>
+
+                                    <button class="btn btn-primary btn-block" tabindex="5">Ganti Password</button>
                                 </form>
 
-                                <!-- <p class="text-center mt-2">
-                                    <span>Belum memiliki akun?</span>
-                                    <a href="<?php echo base_url('register') ?>">
-                                        <span>Daftar disini</span>
+                                <p class="text-center fs-6 mt-2">
+                                    <a href="<?php echo base_url('login_peserta') ?>">
+                                        <span>Kembali ke Login</span>
                                     </a>
-                                </p> -->
+                                </p>
 
                             </div>
                             <!-- /Register v1 -->
@@ -151,44 +162,50 @@
                 'use strict';
 
 
-                $('#btn-change-password').click(function() {
-
-                    $(this).attr("style", "pointer-events: none;");
-
-                    $(this).html(
-                        "<small>Ulangi kirim password (<span id='countdown'>60</span>)</small>"
-                    );
+                $('#btn-otp').click(function() {
+                    var btn = $(this);
+                    btn.prop("disabled", true);
 
                     var countdown = 60;
                     var countdownInterval = setInterval(function() {
                         countdown--;
-                        $("#countdown").text(countdown);
+                        btn.text("Kirim ulang (" + countdown + "s)");
 
                         if (countdown <= 0) {
-                            $("#btn-change-password").removeAttr("style");
-                            $("#btn-change-password").html("<small>Lupa Password</small>");
                             clearInterval(countdownInterval);
+                            btn.text("Dapatkan Kode OTP");
+                            btn.prop("disabled", false);
                         }
                     }, 1000);
 
                     var no_wa = $('#no_wa').val();
                     $.ajax({
-                        url: "<?php echo base_url('login_peserta/forgot_password') ?>",
+                        url: "<?php echo base_url('register/get_otp') ?>",
                         type: "POST",
                         data: {
                             no_wa: no_wa
                         },
                         dataType: "json",
+                        beforeSend: function() {
+                            $('#btn-otp').attr('disable', 'disabled');
+                            $('#btn-otp').html(
+                                '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class = "ml-25 align-middle" > Loading... </span>'
+                            );
+                        },
+                        complete: function() {
+                            $('#btn-otp').removeAttr('disable');
+                            $('#btn-otp').html('Dapatkan Kode OTP');
+                        },
                         success: function(data) {
                             if (data.error == false) {
-                                toastr.success(data.msg, 'Success!', {
+                                toastr.success(data.msg, 'Success Mengirim OTP!', {
                                     closeButton: true,
                                     progressBar: true,
                                     tapToDismiss: false
                                 })
 
                             } else {
-                                toastr.error(data.msg, 'Error!', {
+                                toastr.error(data.msg, 'Error Mengirim OTP!', {
                                     progressBar: true,
                                     allowHtml: true,
                                     closeButton: true,
@@ -198,6 +215,7 @@
                         },
                     })
                 })
+
 
                 var page = $('.auth-register-form');
 
@@ -216,7 +234,15 @@
                             'password': {
                                 required: true,
                                 minlength: 6
-                            }
+                            },
+                            're-password': {
+                                required: true,
+                                equalTo: '#password',
+                                minlength: 6
+                            },
+                            'otp': {
+                                required: true,
+                            },
                         },
                         messages: {
                             'no_wa': {
@@ -226,7 +252,16 @@
                                 required: 'Password tidak boleh kosong',
                                 minlength: jQuery.validator.format(
                                     "Password harus memiliki minimal {0} karakter")
-                            }
+                            },
+                            're-password': {
+                                required: 'Ulangi Password tidak boleh kosong',
+                                minlength: jQuery.validator.format(
+                                    "Password harus memiliki minimal {0} karakter"),
+                                equalTo: "Password tidak sama"
+                            },
+                            'otp': {
+                                required: 'Kode OTP tidak boleh kosong'
+                            },
                         },
 
                         submitHandler: function(page) {

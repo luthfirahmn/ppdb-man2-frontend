@@ -32,8 +32,7 @@ class Frontend extends MX_Controller
         $register_path = base_url() . '/register';
         switch ($param) {
             case 0:
-                return '
-                 <div class="main-button-secondary">Pendaftaran belum dibuka</div>';
+                return '';
                 break;
             case 1:
                 return '
@@ -56,13 +55,15 @@ class Frontend extends MX_Controller
                 return '
 
                  <div class="main-button-red me-2">
-                        <a href="' . $login_path . '" class="">Login</a>
+                        <a href="' . $login_path . '"
+                            class="">
+                            <i class="fa fa-sign-in"></i> Login
+                        </a>
                     </div>
                    ';
                 break;
             case 3:
-                return '
-                <div class="main-button-secondary">Pendaftaran ditutup</div>';
+                return '';
                 break;
         }
     }
