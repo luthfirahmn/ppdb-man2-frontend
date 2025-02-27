@@ -180,7 +180,7 @@
 
                     var no_wa = $('#no_wa').val();
                     $.ajax({
-                        url: "<?php echo base_url('register/get_otp') ?>",
+                        url: "<?php echo base_url('lupa_password/get_otp') ?>",
                         type: "POST",
                         data: {
                             no_wa: no_wa
@@ -266,7 +266,7 @@
 
                         submitHandler: function(page) {
                             $.ajax({
-                                url: "<?php echo base_url('login_peserta/login_proccess') ?>",
+                                url: "<?php echo base_url('lupa_password/forgot_password') ?>",
                                 type: "POST",
                                 data: $(page).serialize(),
                                 dataType: "json",

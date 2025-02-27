@@ -40,10 +40,14 @@ class Lupa_password extends FT_Controller
             $otp = $query->row();
 
 
+            if (!$otp) {
+                echo json_encode(['error' => true, 'msg' => 'Nomor tidak terdaftar di PPDB MAN 2 KOTA BANDUNG']);
+                die;
+            }
 
             $query = $this->db->query("SELECT * FROM ms_message WHERE msg_type = 'otp' ");
             $msg_otp = $query->row();
-            $data_otp = 'token=' . wa_token() . '&number=0' . $no_wa . '&message=' . $msg_otp->message . $otp;
+            $data_otp = 'token=' . wa_token() . '&number=0' . $no_wa . '&message=' . $msg_otp->message . $otp->otp;
             $check_number = wa_post($this->wa_url . 'send_message', $data_otp);
 
             if ($check_number) {
@@ -69,7 +73,7 @@ class Lupa_password extends FT_Controller
             die;
         }
         $no_wa            = (int)$this->input->post('no_wa');
-        $password            = (int)$this->input->post('password');
+        $password            = $this->input->post('password');
 
         $exect = $this->db->where('no_wa', $no_wa)
             ->update('ms_siswa', array('password' => md5($password), 'no_wa' => $no_wa));
