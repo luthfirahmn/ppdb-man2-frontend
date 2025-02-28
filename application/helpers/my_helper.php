@@ -359,7 +359,7 @@ if (!function_exists('slice_string')) {
 if (!function_exists('wa_token')) {
     function wa_token()
     {
-        $token = 'eG3cq62TnRSA7hnjQbncJTFmNmdepc5apnYnvfqLDpBoGkU5wi';
+        $token = 'HyZgbAXPioMgkGLof1xDCaPfLmFaLgcYNKyQh88ePifqFkBxZS';
 
         return $token;
     }
