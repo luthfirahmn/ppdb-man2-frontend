@@ -44,7 +44,7 @@ class Dashboard_peserta extends FT_Controller
     {
 
         $query = $this->db->query("SELECT *
-                                    FROM info_per_ref
+                                    FROM ref_info
                                     WHERE ref_status IN (SELECT ref_status
                                                          FROM ms_siswa
                                                          WHERE id = {$id})
@@ -92,7 +92,7 @@ class Dashboard_peserta extends FT_Controller
     {
         try {
             $id = $this->session->userdata('id');
-            $query = $this->db->query("SELECT s.nisn, s.nama_lengkap, i.waktu, i.tanggal, i.ruangan, i.penguji FROM ms_jadwal_btq i LEFT JOIN ms_siswa s ON s.id = i.id_siswa WHERE s.id = '{$id}' ORDER BY i.id ASC");
+            $query = $this->db->query("SELECT s.nisn, s.nama_lengkap, i.waktu, i.tanggal, i.ruangan, i.penguji, t2.asal_sekolah FROM ms_jadwal_btq i LEFT JOIN ms_siswa s ON s.id = i.id_siswa LEFT JOIN ms_siswa_sekolah t2 ON t2.id_siswa = s.id WHERE s.id = '{$id}' ORDER BY i.id ASC");
             $result = $query->row();
 
             if ($result) {
